@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Diary;
-use App\Post;
+use App\Todolist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DiaryController extends Controller
+
+class TodolistController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -26,9 +26,8 @@ class DiaryController extends Controller
      */
     public function create()
     {
-        DD('1');
 
-        return view('create_diary');
+        return view('home');
     }
 
     /**
@@ -39,68 +38,58 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        $diary=new Diary;
-        $colums=['date','title','comment',];
+        $todolist=new Todolist;
+        $colums=['list_name','assign_personname','deadline',];
         foreach($colums as $colum){
-            $diary->$colum=$request->$colum;
+            $todolist->$colum=$request->$colum;
         }
-        $diary->user_id=Auth::id();
-        // todo 画像登録処理（if）
-        $diary->save();
+        $todolist->user_id=Auth::id();
+        $todolist->save();
         return redirect()->route('home');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Diary $diary)
+    public function show($id)
     {
-        DD('2');
-        return view('mydiary', compact('diary'));
+    // 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Diary $diary)
+    public function edit($id)
     {
-        return view('edit_diary', compact('diary'));
+        // 
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diary $diary)
+    public function update(Request $request, $id)
     {
-        $diary->date=$request->date;
-        $diary->title=$request->title;
-        $diary->comment=$request->comment;
-        // todo 画像登録処理（if）
-        $diary->save();
-        return redirect()->route('home');
-
+     //   
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diary $diary)
+    public function destroy($id)
     {
-        $diary->delete();
-        return redirect()->route('home');
-
+        // DD('g');
     }
 }

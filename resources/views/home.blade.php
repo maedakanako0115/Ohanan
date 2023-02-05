@@ -17,8 +17,42 @@
             <div class="card">
                 <div class="card-header">
                     <div class='text-center'>To do List</div>
-                        <button type="submit" class="btn btn-primary">リスト追加</button>
-                    </form>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+                        リスト追加
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModal3Label">リスト作成</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{route('todolists.store')}}" method="post">
+                                @csrf
+                                    <div class="modal-body">
+                                        <label for="exampleFormControlInput1" class="form-label">リスト名</label>
+                                            <input type="list_name" name="list_name" class="form-control">
+                                        <label for="exampleFormControlInput1" class="form-label">担当者</label>
+                                            <input type="assign_personname" name="assign_personname" class="form-control">
+                                        <label for="exampleFormControlInput1" class="form-label">期日</label>
+                                            <input type="date" name="deadline" id='date' placeholder="0000/00/00"/>
+                                        <!-- <select name='assign_personname' class='form-control'>
+                                            <option value='' hidden>選択</option>
+                                            <option value=""></option> -->
+                                        <!-- </select> --> 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-dismiss="modal">戻る</button>
+                                        <button type="submit" class="btn btn-primary">登録</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                 <table class='table'>
@@ -39,7 +73,9 @@
                             </th>
                             <th scope='col'>{{$todolist['list_name']}}</th>
                             <th scope='col'>{{$todolist['assign_personname']}}</th>
-                            <th scope='col'></th>
+                            <th scope='col'>
+                                <span class="label">{{ $todolist['satus_label']}}</span>
+                            </th>
                             <th scope='col'>{{$todolist['deadline']}}</th>
                         </tr>
                     </tbody>
@@ -59,7 +95,8 @@
                     <div class="form-outline flex-fill">
                         <input type="text" id="form3" class="form-control form-control-lg"  placeholder="タイトル　カテゴリー…"/>
                     </div>
-                <button type="button" class="btn btn-primary">検索</button> 
+                    <button type="button" class="btn btn-primary">検索</button> 
+                </form>
             </div>
             <div class="card-body">
                 <div class="card-body">
@@ -86,7 +123,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
 </div>
 <div>
     <label for=date>日付</label>
-        <input type="text" name="date" id='date' placeholder="0000/00/00"/>
+        <input type="date" name="date" id='date' placeholder="0000/00/00"/>
     </label>
 </div>
 <div>

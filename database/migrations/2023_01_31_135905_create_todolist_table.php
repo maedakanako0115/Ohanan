@@ -19,7 +19,7 @@ class CreateTodolistTable extends Migration
             $table->string('list_name');
             $table->string('assign_personname')->nullable();
             $table->date('deadline')->nullable();
-            $table->tinyInteger('satus')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

@@ -34,9 +34,11 @@
                     </tbody>
                 </table>
                 <div class='d-flex justify-content-around mt-3'>
-                    <a href="{{route('diarys.destroy',$diary['id'])}}">
-                        <button class='btn btn-danger'>削除</button>
-                    </a>
+                    <form action="{{route('diarys.destroy',$diary['id'])}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class='btn btn-danger' type='submit' onclick="return confirm('本当に削除しますか？')">削除</button>
+                    </form>
                     
                     <a href="{{route('diarys.edit',$diary['id'])}}">
                         <button class='btn btn-secondary'>編集</button>

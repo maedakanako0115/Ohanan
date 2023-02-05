@@ -24,7 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home', 'HomeController@createlist')->name('createlist');
+
 Route::resource('/diarys', 'DiaryController');
+Route::resource('/todolists', 'TodolistController');
+
 
 // method url                     function RouteName
 // GET	  /photos	              index	   photos.index    一覧画面表示

@@ -27,14 +27,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // DD('b');
         $diaries=Diary::all();
         $todolists=Todolist::all();
 
 
         return view('home',compact('diaries','todolists'));
     }
-    // public function detail(){
-        
+    public function createlist()
+    {
+        DD('k');
+        $diaries=Diary::all();
+        $todolists=Todolist::all();
+
+
+        return view('home',compact('diaries','todolists'));
+    }        
     //     return view('detail.mydiary');
     // }   
 
