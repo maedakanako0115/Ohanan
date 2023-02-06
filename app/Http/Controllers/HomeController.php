@@ -34,16 +34,5 @@ class HomeController extends Controller
 
         return view('home',compact('diaries','todolists'));
     }
-    public function createlist()
-    {
-        DD('k');
-        $diaries=Diary::all();
-        $todolists=Todolist::all();
-
-
-        return view('home',compact('diaries','todolists'));
-    }        
-    //     return view('detail.mydiary');
-    // }   
 
 }

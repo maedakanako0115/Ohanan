@@ -225,6 +225,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Status' => App\Consts\Status::class,
+        // ↑bladeで呼び出せるようにしている。
+        // configを変更したらphp artisan config:clearをしないといけない
+        /**
+         * 
+         */
 
     ],
 

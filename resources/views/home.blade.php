@@ -13,7 +13,7 @@
 </div>
 <div class="mx-auto">
     <div class="row justify-content-around">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <div class='text-center'>To do List</div>
@@ -55,39 +55,59 @@
                     </div>
                 </div>
                 <div class="card-body">
-                <table class='table'>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th scope='col'>To do</th>
-                            <th scope='col'>担当</th>
-                            <th scope='col'>状態</th>
-                            <th scope='col'>期限</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
+                    <div class="col-md-10">
+                    <div class='d-flex justify-content-center align-items-center'>
+                        <div class='col-md-2'>To do</div>
+                        <div class='col-md-2'>担当</div>
+                        <div class='col-md-2'>状態</div>
+                        <div class='col-md-4'>期限</div>
+                        <div class='col-md-2'></div>
+                    </div>
+                    </div>
+                    <div class='col-md-2'></div>
+                    </div>
                     @foreach($todolists as $todolist)
-                        <tr>
-                            <th scope='col'>
-                                <a href=""></a>
-                            </th>
-                            <th scope='col'>{{$todolist['list_name']}}</th>
-                            <th scope='col'>{{$todolist['assign_personname']}}</th>
-                            <th scope='col'>
-                                <span class="label">{{ $todolist['satus_label']}}</span>
-                            </th>
-                            <th scope='col'>{{$todolist['deadline']}}</th>
-                        </tr>
-                    </tbody>
+                    <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
+                    <div class='col-md-10'>
+                    <form action="/todolists/{{$todolist['id']}}" method="post">
+                        @csrf
+                        @method('put')
+                        <div class='d-flex justify-content-center align-items-center'>
+                            <div class='col-md-2'>{{$todolist['list_name']}}</div>
+                            <div class='col-md-2'>{{$todolist['assign_personname']}}</div>
+                            <div class='col-md-2'>
+                                <select name="status">
+                                @foreach(\Status::STATUS as $key => $value)
+                                    @if($todolist['status'] === $key)
+                                    <option value="{{ $key }}" selected>{{ $value }}</option>
+                                    @endif
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class='col-md-4'>{{$todolist['deadline']}}</div>
+                            <div class='col-md-2'>
+                                <button type="submit" class='btn btn-outline-primary' formaction="/todolists/{{$todolist['id']}}">更新</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                    <div class='col-md-2'>
+                        <form action="{{route('todolists.destroy',$todolist['id'])}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class='btn btn-outline-primary' formaction="{{route('todolists.destroy',$todolist['id'])}}">削除</button>
+                        </form>
+                    </div>
+                </div>
                     @endforeach
-                </table>
-
                     <div class="card-body">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
         <div class="card">
             <div class="card-header">
                 <div class='text-center'>日記</div>

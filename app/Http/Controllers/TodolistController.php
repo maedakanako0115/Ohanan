@@ -56,7 +56,7 @@ class TodolistController extends Controller
      */
     public function show($id)
     {
-    // 
+    //
     }
 
     /**
@@ -79,7 +79,11 @@ class TodolistController extends Controller
      */
     public function update(Request $request, $id)
     {
-     //   
+        $todolist=Todolist::find($id);
+        $todolist->status=$request->status;
+        $todolist->save();
+        return redirect()->route('home');
+    
     }
 
     /**
@@ -90,6 +94,9 @@ class TodolistController extends Controller
      */
     public function destroy($id)
     {
-        // DD('g');
+        $todolist=Todolist::find($id);
+        $todolist->delete();
+        return redirect()->route('home');
+
     }
 }

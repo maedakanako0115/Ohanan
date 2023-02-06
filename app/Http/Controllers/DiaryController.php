@@ -26,7 +26,6 @@ class DiaryController extends Controller
      */
     public function create()
     {
-        DD('1');
 
         return view('create_diary');
     }
@@ -58,7 +57,6 @@ class DiaryController extends Controller
      */
     public function show(Diary $diary)
     {
-        DD('2');
         return view('mydiary', compact('diary'));
     }
 
