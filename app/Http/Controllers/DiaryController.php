@@ -39,7 +39,7 @@ class DiaryController extends Controller
     public function store(Request $request)
     {
         $diary=new Diary;
-        $colums=['date','title','comment',];
+        $colums=['date','title','image','comment',];
         foreach($colums as $colum){
             $diary->$colum=$request->$colum;
         }
