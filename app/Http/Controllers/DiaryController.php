@@ -25,8 +25,7 @@ class DiaryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-
+    {        
         return view('create_diary');
     }
 
@@ -39,12 +38,22 @@ class DiaryController extends Controller
     public function store(Request $request)
     {
         $diary=new Diary;
-        $colums=['date','title','image','comment',];
+        $diary->user_id=Auth::id();
+        $colums=['date','title','comment','image'];
         foreach($colums as $colum){
             $diary->$colum=$request->$colum;
+            // todo 画像登録処理（if）
+            if(!is_null($request->image)){
+                // ディレクトリ名
+                // $dir='image';
+                 // アップロードされたファイル名を取得
+                // $file_name=$request->image;
+                // $file_name=$request->file('image')->getClientOriginalName();
+                 // 取得したファイル名で保存
+                $request->file('image')->store('public/image');
+                $diary->image=$request->file('image')->getClientOriginalName();
+            }
         }
-        $diary->user_id=Auth::id();
-        // todo 画像登録処理（if）
         $diary->save();
         return redirect()->route('home');
     }
@@ -84,6 +93,13 @@ class DiaryController extends Controller
         $diary->title=$request->title;
         $diary->comment=$request->comment;
         // todo 画像登録処理（if）
+        if(!is_null($request->image)){
+            $path=$request->image->store('public/image');
+            // 名前の保存（ランダムネーム）
+            $file_name=basename($path);
+            $diary->image=$file_name;
+        }
+        
         $diary->save();
         return redirect()->route('home');
 

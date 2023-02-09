@@ -22,8 +22,7 @@
                         <!-- ここに支出を表示する -->
                         @if(isset($diary['id']))
                         <tr>
-                            <th scope='col'>
-                            </th>
+                            <th scope='col'><img src="{{asset('storage/image/'.$diary["image"])}}" class="img-fluid"></th>
                             <th scope='col'>{{$diary['title']}}</th>
                             <th scope='col'>{{$diary['date']}}</th>
                             <th scope='col'>{{$diary['comment']}}</th>
