@@ -28,6 +28,8 @@ Route::post('/home', 'HomeController@createlist')->name('createlist');
 
 Route::resource('/diarys', 'DiaryController');
 Route::resource('/todolists', 'TodolistController');
+Route::resource('/users', 'UserController');
+
 
 
 // method url                     function RouteName

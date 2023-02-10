@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-right">
-    <div class="btn-group">
+    <div class="btn-group pb-4 pt-3">
         <option value='' class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             グループ選択 
         </option>
@@ -39,7 +39,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">担当者</label>
                                             <input type="assign_personname" name="assign_personname" class="form-control">
                                         <label for="exampleFormControlInput1" class="form-label">期日</label>
-                                            <input type="date" name="deadline" id='date' placeholder="0000/00/00"/>
+                                            <input type="date" name="deadline" id='date' class="form-control">
                                         <!-- <select name='assign_personname' class='form-control'>
                                             <option value='' hidden>選択</option>
                                             <option value=""></option> -->
@@ -111,38 +111,39 @@
         <div class="card">
             <div class="card-header">
                 <div class='text-center'>日記</div>
-                <form class="d-flex justify-content-center align-items-center">
-                    <div class="form-outline flex-fill">
-                        <input type="text" id="form3" class="form-control form-control-lg"  placeholder="タイトル　カテゴリー…"/>
-                    </div>
-                    <button type="button" class="btn btn-primary">検索</button> 
-                </form>
+                <a href="{{route('diarys.create')}}">
+                    <button type="submit" class="btn btn-primary" >日記追加</button>
+                </a>
             </div>
             <div class="card-body">
                 <div class="card-body">
-                    <a href="{{route('diarys.create')}}">
-                    <button type="submit" class="btn btn-primary" >日記追加</button>
-                </a>
-                <table class='table'>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th scope='col'>タイトル</th>
-                            <th scope='col'>日付</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($diaries as $diary)
-                        <tr>
-                            <th scope='col'>
-                                <a href="{{route('diarys.show',$diary['id'])}}">♯</a>
-                            </th>
-                            <th scope='col'>{{$diary['title']}}</th>
-                            <th scope='col'>{{$diary['date']}}</th>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <div class="input-group border-bottom pb-2 pt-2">
+                        <input type="text" class="form-control" placeholder="テキスト入力欄">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary">検索</button>
+                        </span>
+                    </div>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th scope='col'>タイトル</th>
+                                <th scope='col'>日付</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($diaries as $diary)
+                            <tr>
+                                <th scope='col'>
+                                    <a href="{{route('diarys.show',$diary['id'])}}">♯</a>
+                                </th>
+                                <th scope='col'>{{$diary['title']}}</th>
+                                <th scope='col'>{{$diary['date']}}</th>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
