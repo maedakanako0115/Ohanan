@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
-use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +39,7 @@ class DiaryController extends Controller
     {
         $diary=new Diary;
         $diary->user_id=Auth::id();
-        $colums=['date','title','comment','image'];
+        $colums=['date','title','text','image'];
         foreach($colums as $colum){
             $diary->$colum=$request->$colum;
             // todo 画像登録処理（if）
@@ -66,7 +66,9 @@ class DiaryController extends Controller
      */
     public function show(Diary $diary)
     {
-        return view('mydiary', compact('diary'));
+        $comment=new Comment;
+        $comments=Comment::all();
+        return view('mydiary', compact('diary','comments'));
     }
 
     /**
@@ -91,7 +93,7 @@ class DiaryController extends Controller
     {
         $diary->date=$request->date;
         $diary->title=$request->title;
-        $diary->comment=$request->comment;
+        $diary->text=$request->text;
         // todo 画像登録処理（if）
         if(!is_null($request->image)){
             $path=$request->image->store('public/image');

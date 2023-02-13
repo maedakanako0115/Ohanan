@@ -15,9 +15,9 @@
                             <h4 class="pb-2 pt-2">{{$diary['title']}}</h4>
                             <h5 class="px-4 border-bottom pb-2 pt-2">{{$diary['date']}}</h5>
                         </div>
-                        <div class="row justify-content-around"></div>
-                        <p class="text">{{$diary['comment']}}</p>
-                        <div></div>
+                        <div class="diary">
+                            {{$diary['text']}}
+                        </div>
                     </div>
                     <div class="col-6 col-md-4">
                         <div class="d-inline-flex p-2 bd-highlight">
@@ -25,6 +25,48 @@
                         </div>
                     </div>
                 </div>
+                <!-- Button trigger modal -->
+                <div class="justify-content-center align-items-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+                        コメントする
+                    </button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModal3Label">コメント</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{route('comments.store')}}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <label for="exampleFormControlInput1" class="form-label">コメント</label>
+                            <textarea class='form-control' name="comment" class=height:500px;width:400px; placeholder="内容を入力"></textarea>
+                            <input type="hidden" name="diary_id" value="{{$diary['id']}}"> 
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-dismiss="modal">戻る</button>
+                            <button type="submit" class="btn btn-primary">登録</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach($diary->comments as $comment)
+                <form action="/comment/{{$comment['id']}}" method="post">
+                    @csrf
+                    @method('put')
+                    @if(isset($comment))
+                        <h2>{{$comment['comment']}}</h2>
+                        <h2>{{$comment['created_at']}}</h2>
+                    @else
+                        <p>コメントがありません</p>
+                    @endif
+                    @endforeach
+                </form>
                 <div class='d-flex justify-content-around'>
                     <form action="{{route('diarys.destroy',$diary['id'])}}" method="post">
                         @csrf

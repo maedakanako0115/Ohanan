@@ -19,7 +19,7 @@ class CreateDiarysTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->string('image')->nullable();
-            $table->string('comment');
+            $table->string('text');
             $table->timestamps();
         });
     }

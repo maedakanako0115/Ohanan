@@ -29,6 +29,9 @@ Route::post('/home', 'HomeController@createlist')->name('createlist');
 Route::resource('/diarys', 'DiaryController');
 Route::resource('/todolists', 'TodolistController');
 Route::resource('/users', 'UserController');
+Route::resource('/comments', 'CommentController');
+
+
 
 
 

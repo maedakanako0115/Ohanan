@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id')->autoIncrement();
             $table->integer('user_id');
             $table->integer('diary_id');
-            $table->string('name');
+            $table->string('comment');
             $table->timestamps();
         });
     }

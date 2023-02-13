@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="text-right">
     <div class="btn-group pb-4 pt-3">
         <option value='' class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             グループ選択 
         </option>
-        <button type="button" class="btn btn-outline-success" >グループ作成</button>
-        <button type="button" class="btn btn-outline-info">グループ編集</button>
-        <button type="button" class="btn btn-outline-danger">グループ削除</button>
+        <button type="button" class="btn btn-outline-success" >かぞく招待</button>
+        <button type="button" class="btn btn-outline-info">かぞく編集</button>
+        <button type="button" class="btn btn-outline-danger">かぞく削除</button>
     </div>
 </div>
 <div class="mx-auto">
@@ -36,10 +37,11 @@
                                     <div class="modal-body">
                                         <label for="exampleFormControlInput1" class="form-label">リスト名</label>
                                             <input type="list_name" name="list_name" class="form-control">
-                                        <label for="exampleFormControlInput1" class="form-label">担当者</label>
+                                        <label for="exampleFormControlInput1" class="form-label">名前</label>
                                             <input type="assign_personname" name="assign_personname" class="form-control">
                                         <label for="exampleFormControlInput1" class="form-label">期日</label>
                                             <input type="date" name="deadline" id='date' class="form-control">
+                                            
                                         <!-- <select name='assign_personname' class='form-control'>
                                             <option value='' hidden>選択</option>
                                             <option value=""></option> -->
