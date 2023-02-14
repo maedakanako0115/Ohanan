@@ -120,10 +120,13 @@
             <div class="card-body">
                 <div class="card-body">
                     <div class="input-group border-bottom pb-2 pt-2">
-                        <input type="text" class="form-control" placeholder="テキスト入力欄">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary">検索</button>
-                        </span>
+                        <form method="get" action="/home">
+                            @csrf
+                            <input type="text" name="keyword" class="form-control" placeholder="テキスト入力欄">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">検索</button>
+                            </span>
+                        </form>
                     </div>
                     <table class='table'>
                         <thead>
@@ -137,7 +140,7 @@
                             @foreach($diaries as $diary)
                             <tr>
                                 <th scope='col'>
-                                    <a href="{{route('diarys.show',$diary['id'])}}">♯</a>
+                                    <a href="{{route('diarys.show',$diary['id'])}}">🐸</a>
                                 </th>
                                 <th scope='col'>{{$diary['title']}}</th>
                                 <th scope='col'>{{$diary['date']}}</th>

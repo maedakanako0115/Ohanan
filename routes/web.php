@@ -24,7 +24,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/home', 'HomeController@createlist')->name('createlist');
 
 Route::resource('/diarys', 'DiaryController');
 Route::resource('/todolists', 'TodolistController');
