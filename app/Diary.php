@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diary extends Model
 {
-    protected $fillable = ['user_id','title','date', 'category','image','comment'];
+    protected $fillable = ['user_id','group_id','title','date', 'category','image','comment'];
     
     protected $table='diarys';
     

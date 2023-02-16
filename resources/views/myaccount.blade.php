@@ -2,19 +2,6 @@
 
 @section('content')
 
-<!-- <img src="{{ asset('storage/images/' .auth()->user()->images) }}">
-
-<form action="{{ url('profileup') }}" enctype="multipart/form-data" method="post">
-  @csrf
-  @if ($errors->any())
-      <div class="alert alert-danger">
-          <ul>
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-   @endif -->
 <dl class="UserProfile">
 <main class="py-4">
     <div class="row justify-content-around">

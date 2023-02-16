@@ -1,25 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
+use App\Group;
+use App\Group_info;
 
 use Illuminate\Http\Request;
-use App\Comment;
 use Illuminate\Support\Facades\Auth;
 
-
-
-
-class CommentController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-    }
 
+        $keyword = $request->input('keyword');
+        if($keyword){
+        // DD($keyword);
+        $user=User::where('email',$keyword)->get();
+        }else{
+            $user=[];
+        }
+
+        return view('invite_group',compact('user','keyword'));
+
+        
+
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +40,7 @@ class CommentController extends Controller
      */
     public function create()
     {
+        return view('create_group');
     }
 
     /**
@@ -37,18 +51,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = new Comment();
-        $comment->user_id=Auth::id();
-
-
-        $colums=['diary_id','comment','group_id'];
-        foreach($colums as $colum){
-            $comment->$colum=$request->$colum;
-        }
-
-        $comment->save();
-        return redirect()->route('home');
-
+        //
     }
 
     /**
@@ -59,7 +62,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -70,7 +73,7 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -80,9 +83,15 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        DD('f');
+    public function update($id)
+    { 
+        DD($id);
+        $group_info=new Group_info;
+        $admin=Group::where('user_id',Auth::id())->get();
+        // findがテーブルの主key(id)でしか絞れない
+        $group_info->group_id;
+        $group_info->user_id=$id;
+
     }
 
     /**
@@ -91,12 +100,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $message= Comment::find($request->comment_id);
-        $message->delete();
-
-
-        return redirect()->route('mydiary');
+        //
     }
 }

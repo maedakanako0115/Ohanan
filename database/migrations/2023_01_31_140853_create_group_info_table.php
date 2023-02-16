@@ -16,7 +16,7 @@ class CreateGroupInfoTable extends Migration
         Schema::create('group_infos', function (Blueprint $table) {
             $table->bigIncrements('id')->autoIncrement();
             $table->integer('user_id');
-            $table->integer('diary_id');
+            $table->integer('group_id');
             $table->timestamps();
         });
     }

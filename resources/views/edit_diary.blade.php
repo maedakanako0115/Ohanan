@@ -30,7 +30,7 @@
                             <textarea class='form-control' name="text" class=height:500px;width:400px; >{{old('text',$diary->text)}}</textarea>
                         </div>
                         <div class='d-flex justify-content-around mt-3'>
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('ohana') }}">
                                 <button class='btn btn-primary pb-2 pt-2'>一覧に戻る</button>
                             </a>
                             <button type="submit" class="btn btn-primary">保存</button>

@@ -39,13 +39,13 @@ class TodolistController extends Controller
     public function store(Request $request)
     {
         $todolist=new Todolist;
-        $colums=['list_name','assign_personname','deadline',];
+        $colums=['list_name','assign_personname','deadline','group_id'];
         foreach($colums as $colum){
             $todolist->$colum=$request->$colum;
         }
         $todolist->user_id=Auth::id();
         $todolist->save();
-        return redirect()->route('home');
+        return redirect()->route('ohana',['group_id'=>$request->group_id]);
     }
 
     /**

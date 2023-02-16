@@ -17,6 +17,7 @@ class CreateDiarysTable extends Migration
             $table->bigIncrements('id')->autoIncrement();
             $table->date('date');
             $table->integer('user_id');
+            $table->integer('group_id');
             $table->string('title');
             $table->string('image')->nullable();
             $table->string('text');

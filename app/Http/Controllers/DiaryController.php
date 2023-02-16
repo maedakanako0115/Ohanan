@@ -24,9 +24,12 @@ class DiaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {        
-        return view('create_diary');
+    public function create(Request $request)
+    {   
+        
+        $group_id=$request->group_id;
+        return view('create_diary',compact('group_id'));
+
     }
 
     /**
@@ -39,7 +42,8 @@ class DiaryController extends Controller
     {
         $diary=new Diary;
         $diary->user_id=Auth::id();
-        $colums=['date','title','text','image'];
+
+        $colums=['date','title','text','image','group_id'];
         foreach($colums as $colum){
             $diary->$colum=$request->$colum;
             // todo 画像登録処理（if）
@@ -55,7 +59,7 @@ class DiaryController extends Controller
             }
         }
         $diary->save();
-        return redirect()->route('home');
+        return redirect()->route('ohana',['group_id'=>$request->group_id]);
     }
 
     /**
@@ -103,7 +107,7 @@ class DiaryController extends Controller
         }
         
         $diary->save();
-        return redirect()->route('home');
+        return redirect()->route('ohana',['group_id'=>$request->group_id]);
 
     }
 
@@ -116,7 +120,7 @@ class DiaryController extends Controller
     public function destroy(Diary $diary)
     {
         $diary->delete();
-        return redirect()->route('home');
+        return redirect()->route('ohana');
 
     }
 }

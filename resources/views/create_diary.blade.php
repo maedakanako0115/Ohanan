@@ -25,10 +25,11 @@
                         </div>
                         <div class="form-group row">
                             <p class="col-sm-2 col-form-label">日記記入</p>
-                            <textarea class='form-control' name="text" class=height:500px;width:400px; placeholder="内容を入力"></textarea>
+                            <textarea class='form-control'  name="text" class=height:500px;width:400px; placeholder="内容を入力"></textarea>
                         </div>
+                        <input type="hidden" name="group_id" value="{{$group_id}}">
                         <div class='d-flex justify-content-around mt-3'>
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('home', ['group_id'=>$group_id]) }}">
                                 <button type='button' class='btn btn-primary pb-2 pt-2'>一覧に戻る</button>
                             </a>
                             <button type="submit" class="btn btn-primary">保存</button>

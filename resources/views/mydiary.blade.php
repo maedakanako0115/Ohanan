@@ -76,7 +76,7 @@
                     <a href="{{route('diarys.edit',$diary['id'])}}">
                         <button class='btn btn-secondary'>編集</button>
                     </a>
-                    <a href="{{route('home')}}">
+                    <a href="{{route('ohana')}}">
                         <button class='btn btn-warning'>戻る</button>
                     </a>
                 </div>
