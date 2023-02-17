@@ -16,10 +16,11 @@
                             @csrf
                             <input type="text" name="keyword" class="form-control" value="{{$keyword}}">
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">検索</button>
+                                <button type="submit" class="btn btn-outline-dark">🔍</button>
                             </span>
                             <input type="hidden" name="group_id" value="{{$group_id}}">
                         </form>
+                        <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()">一覧に戻る</button>
                     </div>
                 </div>
                 <table class='table'>
