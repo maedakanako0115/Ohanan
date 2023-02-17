@@ -47,9 +47,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request,User $user)
     {
-        return view('myaccount', compact('user'));
+        $group_id=$request->group_id;
+
+        return view('myaccount', compact('user','group_id'));
 
     }
 
@@ -59,9 +61,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Request $request,User $user)
     {
-        return view('edit_account', compact('user'));
+        $group_id=$request->group_id;
+
+        return view('edit_account', compact('user','group_id'));
     }
 
     /**
@@ -83,7 +87,7 @@ class UserController extends Controller
             $user->image=$file_name;
         }
         $user->save();
-        return redirect()->route('home');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     }
 
     /**
@@ -92,9 +96,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request,User $user)
     {
         $user->delete();
-        return redirect()->route('home');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     }
 }

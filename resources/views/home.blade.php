@@ -2,6 +2,36 @@
 
 @section('content')
 
+@if(!$group_id)
+<div class="card">
+    <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
+    <div class="card-body">
+        <div class="text-center">
+            <p>かぞくで日記・Todoリストを共有しよう！</p>
+            <div class="btn-group pb-4 pt-3">
+                <form action="/home" method="get">
+                    @csrf
+                    <select class="custom-select" name="group_id">
+                        <option selected>グループ選択</option>
+                        @foreach($groups as $group)
+                        @if($group_id == $group['id'])
+                        <option value="{{$group['id']}}" selected>{{$group['name']}}</option>
+                        @else
+                        <option value="{{$group['id']}}">{{$group['name']}}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="mr-4">移動する</button>
+                </form>
+                <a href="{{route('groups.create')}}">
+                    <button type="button" class="btn btn-outline-success">かぞく作成</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@else
 <div class="text-right">
     <div class="btn-group pb-4 pt-3">
         <form action="/home" method="get">
@@ -18,11 +48,13 @@
             </select>
             <button type="submit">移動する</button>
         </form>
-        <button type="button" class="btn btn-outline-success m-4">かぞく作成</button>
-        <a href="{{route('groups.index')}}">
-            <button type="button" class="btn btn-outline-info m-4">かぞく招待</button>
-            <input type="hidden" value=>
+        <a href="{{route('groups.create')}}">
+            <button type="button" class="btn btn-outline-success m-4">かぞく作成</button>
         </a>
+        <form action="{{route('groups.index')}}">
+            <button type="submit" class="btn btn-outline-info m-4">かぞく招待</button>
+            <input type="text" name="group_id" value="{{$group_id}}" hidden>
+        </form>
     </div>
 </div>
 <div class="mx-auto">
@@ -54,6 +86,7 @@
                                         <input type="assign_personname" name="assign_personname" class="form-control">
                                         <label for="exampleFormControlInput1" class="form-label">期日</label>
                                         <input type="date" name="deadline" id='date' class="form-control">
+                                        <input type="hidden" name="group_id" value="{{$group_id}}">
 
                                         <!-- <select name='assign_personname' class='form-control'>
                                             <option value='' hidden>選択</option>
@@ -136,7 +169,7 @@
                     <div class="card-body">
                         <div class="input-group border-bottom pb-2 pt-2">
                             <form method="get" action="/home">
-                                @csrf 
+                                @csrf
                                 <input type="text" name="keyword" class="form-control" placeholder="テキスト入力欄">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">検索</button>
@@ -171,6 +204,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- <div class="container">
     <div class="row justify-content-center">

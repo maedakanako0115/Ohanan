@@ -24,10 +24,11 @@ class TodolistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
 
-        return view('home');
+        $group_id=$request->group_id;
+        return view('home',compact('group_id'));
     }
 
     /**
@@ -45,7 +46,7 @@ class TodolistController extends Controller
         }
         $todolist->user_id=Auth::id();
         $todolist->save();
-        return redirect()->route('ohana',['group_id'=>$request->group_id]);
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     }
 
     /**
@@ -82,7 +83,7 @@ class TodolistController extends Controller
         $todolist=Todolist::find($id);
         $todolist->status=$request->status;
         $todolist->save();
-        return redirect()->route('home');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     
     }
 
@@ -92,11 +93,11 @@ class TodolistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $todolist=Todolist::find($id);
         $todolist->delete();
-        return redirect()->route('home');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
 
     }
 }

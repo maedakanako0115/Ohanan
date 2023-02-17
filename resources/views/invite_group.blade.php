@@ -18,6 +18,7 @@
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">検索</button>
                             </span>
+                            <input type="hidden" name="group_id" value="{{$group_id}}">
                         </form>
                     </div>
                 </div>
@@ -36,10 +37,12 @@
                             <th></th>
                             <th scope='col'>{{$you['name']}}</th>
                             <th scope='col'>{{$you['email']}}</th>
+                            <input type="hidden" name="group_id" value="{{$group_id}}">
                             <th>
                                 <form method="POST" action="{{ route('groups.update',$you->id)}}">
                                     @csrf
                                     @method('put')
+                                    <input type="hidden" name="group_id" value="{{$group_id}}">
                                     <button type="submit" class="btn btn-success">
                                         招待
                                     </button>

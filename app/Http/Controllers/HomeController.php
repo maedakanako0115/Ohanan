@@ -6,7 +6,7 @@ use App\User;
 use App\Diary;
 use App\Todolist;
 use App\Group;
-
+use App\Group_info;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,9 +41,32 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        
         $group_id = $request->group_id;
-        // DD($request);
-        $groups = Group::where('user_id', Auth::id())->get();
+        $todolists='';
+        $diaries='';
+        $groups = Group::where('user_id', Auth::id());
+        $flg=Group_info::where('user_id', Auth::id())->get();
+        // is_array->配列チェック
+        if($flg){
+            $group_flg=[];
+            foreach($flg as $val){
+                $groups->orWhere('id', $val->group_id);
+                // = 代入（上書される　or されない）
+                // orWhere->範囲選択（広がっていく）'->'推奨
+                // where->絞り込み'->'推奨 
+                // = 使うなら変数「」にしてあげる　（キーが入る（01...））
+            }
+        }
+    
+        // getするためには変数＝～get()
+        $groups=$groups->get();
+
+        $keyword='';
+
+        if($group_id){
+
+        
 
         $todolists = Todolist::where('user_id', Auth::id());
         if ($group_id) {
@@ -81,6 +104,7 @@ class HomeController extends Controller
         // DD($diary->get());
 
         $diaries = $diary->paginate(5);
+    }
         return view('home', compact('diaries', 'todolists', 'groups', 'group_id', 'keyword'));
     }
 }

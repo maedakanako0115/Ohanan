@@ -59,7 +59,7 @@ class DiaryController extends Controller
             }
         }
         $diary->save();
-        return redirect()->route('ohana',['group_id'=>$request->group_id]);
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     }
 
     /**
@@ -68,11 +68,13 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function show(Diary $diary)
+    public function show(Request $request,Diary $diary)
     {
         $comment=new Comment;
         $comments=Comment::all();
-        return view('mydiary', compact('diary','comments'));
+        $group_id=$request->group_id;
+        return view('mydiary', compact('diary','comments','group_id'));
+
     }
 
     /**
@@ -81,9 +83,11 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function edit(Diary $diary)
+    public function edit(Request $request,Diary $diary)
     {
-        return view('edit_diary', compact('diary'));
+        $group_id=$request->group_id;
+
+        return view('edit_diary', compact('diary','group_id'));
     }
 
     /**
@@ -107,7 +111,7 @@ class DiaryController extends Controller
         }
         
         $diary->save();
-        return redirect()->route('ohana',['group_id'=>$request->group_id]);
+        return redirect()->route('home',['group_id'=>$request->group_id]);
 
     }
 
@@ -117,10 +121,10 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diary $diary)
+    public function destroy(Request $request,Diary $diary)
     {
         $diary->delete();
-        return redirect()->route('ohana');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
 
     }
 }

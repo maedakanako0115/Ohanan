@@ -18,6 +18,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
 
+        $group_id=$request->group_id;
         $keyword = $request->input('keyword');
         if($keyword){
         // DD($keyword);
@@ -25,8 +26,9 @@ class GroupController extends Controller
         }else{
             $user=[];
         }
+        
 
-        return view('invite_group',compact('user','keyword'));
+        return view('invite_group',compact('user','keyword','group_id'));
 
         
 
@@ -51,7 +53,17 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+
+        $group=new Group;
+        $group->user_id=Auth::id();
+        $colums=['name'];
+        foreach($colums as $colum){
+            $group->$colum=$request->$colum;
+        }
+        $group->save();
+        return redirect()->route('home',['group_id'=>$request->group_id]);
+
     }
 
     /**
@@ -71,9 +83,12 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,Group $group)
     {
-        //
+        $group_id=$request->group_id;
+        return view('invite_group', compact('group','group_id','you'));
+
+
     }
 
     /**
@@ -83,14 +98,18 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update($id,Request $request)
     { 
-        DD($id);
         $group_info=new Group_info;
-        $admin=Group::where('user_id',Auth::id())->get();
         // findがテーブルの主key(id)でしか絞れない
-        $group_info->group_id;
+        $group_info->group_id=$request->group_id;
         $group_info->user_id=$id;
+        
+
+        
+        $group_info->save();
+        return redirect()->route('home',['group_id'=>$request->group_id]);
+
 
     }
 

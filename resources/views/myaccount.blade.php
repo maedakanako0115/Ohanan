@@ -42,7 +42,7 @@
                         <a href="{{route('users.edit',$user['id'])}}">
                             <button class='btn btn-secondary'>編集</button>
                         </a>
-                        <a href="{{route('home')}}">
+                        <a href="{{ route('home', ['group_id'=>$group_id]) }}">
                             <button class='btn btn-warning'>戻る</button>
                         </a>
                     </div>

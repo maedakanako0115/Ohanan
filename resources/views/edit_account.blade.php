@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class='d-flex justify-content-around mt-3'>
-                            <a href="{{ route('ohana') }}">
+                            <a href="{{ route('home', ['group_id'=>$group_id]) }}">
                                 <button class='btn btn-primary pb-2 pt-2'>一覧に戻る</button>
                             </a>
                             <div class="col-md-6 offset-md-4">

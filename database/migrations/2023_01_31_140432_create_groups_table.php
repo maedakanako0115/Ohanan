@@ -16,7 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id')->autoIncrement();
             $table->string('name');
-            $table->string('group_token');
+            $table->string('group_token')->nullable();;
             $table->integer('user_id');
             $table->timestamps();
         });
