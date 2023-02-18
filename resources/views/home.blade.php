@@ -188,9 +188,13 @@
                             <tbody>
                                 @if(isset($diaries))
                                 @foreach($diaries as $diary)
+                                @csrf
                                 <tr>
                                     <th scope='col'>
-                                        <a href="{{route('diarys.show',$diary['id'])}}">🐸</a>
+                                        <form action="{{route('diarys.show',$diary['id'])}}">
+                                            <input type="text" name="group_id" value="{{$group_id}}" hidden>
+                                            <button type="submit">🐸</button>
+                                        </form>
                                     </th>
                                     <th scope='col'>{{$diary['title']}}</th>
                                     <th scope='col'>{{$diary['date']}}</th>

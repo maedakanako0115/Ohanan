@@ -25,15 +25,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/diarys', 'DiaryController');
 Route::resource('/todolists', 'TodolistController');
 Route::resource('/users', 'UserController');
 Route::resource('/comments', 'CommentController');
-
-
-// Route::get('/groups', 'GroupController@showLinkRequestForm')->name('group.invite')->middleware('auth');
-// Route::post('/groups/{group}', 'GroupController@sendInviteFamilyEmail')->name('group_invite.email')->middleware('auth');
 Route::resource('/groups', 'GroupController');
+Route::resource('/diarys', 'DiaryController');
+
+
+//ログイン中のユーザーのみアクセス可能
+Route::group(['middleware' => ['auth']], function () {
+    //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+    Route::post('/ajaxlike', 'DiaryController@ajaxlike')->name('posts.ajaxlike');
+});
+
 
 
 

@@ -47,7 +47,7 @@ class CommentController extends Controller
         }
 
         $comment->save();
-        return redirect()->route('home');
+        return redirect()->route('home',['group_id'=>$request->group_id]);
 
     }
 

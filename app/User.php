@@ -56,5 +56,9 @@ class User extends Authenticatable
     public function group_infos(){
         return $this->hasMany('App\Group_info');
     }
+    public function likes()
+    {
+      return $this->hasMany('App\Like');
+    }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diary;
 use App\Comment;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,11 +26,10 @@ class DiaryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {   
-        
-        $group_id=$request->group_id;
-        return view('create_diary',compact('group_id'));
+    {
 
+        $group_id = $request->group_id;
+        return view('create_diary', compact('group_id'));
     }
 
     /**
@@ -40,26 +40,26 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        $diary=new Diary;
-        $diary->user_id=Auth::id();
+        $diary = new Diary;
+        $diary->user_id = Auth::id();
 
-        $colums=['date','title','text','image','group_id'];
-        foreach($colums as $colum){
-            $diary->$colum=$request->$colum;
+        $colums = ['date', 'title', 'text', 'image', 'group_id'];
+        foreach ($colums as $colum) {
+            $diary->$colum = $request->$colum;
             // todo 画像登録処理（if）
-            if(!is_null($request->image)){
+            if (!is_null($request->image)) {
                 // ディレクトリ名
                 // $dir='image';
-                 // アップロードされたファイル名を取得
+                // アップロードされたファイル名を取得
                 // $file_name=$request->image;
                 // $file_name=$request->file('image')->getClientOriginalName();
-                 // 取得したファイル名で保存
+                // 取得したファイル名で保存
                 $request->file('image')->store('public/image');
-                $diary->image=$request->file('image')->getClientOriginalName();
+                $diary->image = $request->file('image')->getClientOriginalName();
             }
         }
         $diary->save();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
+        return redirect()->route('home', ['group_id' => $request->group_id]);
     }
 
     /**
@@ -68,13 +68,13 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,Diary $diary)
+    public function show(Request $request, Diary $diary)
     {
-        $comment=new Comment;
-        $comments=Comment::all();
-        $group_id=$request->group_id;
-        return view('mydiary', compact('diary','comments','group_id'));
 
+        $like_model = new Like;
+        $comments = Comment::all();
+        $group_id = $request->group_id;
+        return view('mydiary', compact('diary','like_model', 'comments', 'group_id'));
     }
 
     /**
@@ -83,11 +83,11 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,Diary $diary)
+    public function edit(Request $request, Diary $diary)
     {
-        $group_id=$request->group_id;
+        $group_id = $request->group_id;
 
-        return view('edit_diary', compact('diary','group_id'));
+        return view('edit_diary', compact('diary', 'group_id'));
     }
 
     /**
@@ -99,20 +99,19 @@ class DiaryController extends Controller
      */
     public function update(Request $request, Diary $diary)
     {
-        $diary->date=$request->date;
-        $diary->title=$request->title;
-        $diary->text=$request->text;
+        $diary->date = $request->date;
+        $diary->title = $request->title;
+        $diary->text = $request->text;
         // todo 画像登録処理（if）
-        if(!is_null($request->image)){
-            $path=$request->image->store('public/image');
+        if (!is_null($request->image)) {
+            $path = $request->image->store('public/image');
             // 名前の保存（ランダムネーム）
-            $file_name=basename($path);
-            $diary->image=$file_name;
+            $file_name = basename($path);
+            $diary->image = $file_name;
         }
-        
-        $diary->save();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
 
+        $diary->save();
+        return redirect()->route('home', ['group_id' => $request->group_id]);
     }
 
     /**
@@ -121,10 +120,42 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,Diary $diary)
+    public function destroy(Request $request, Diary $diary)
     {
         $diary->delete();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
-
+        return redirect()->route('home', ['group_id' => $request->group_id]);
     }
+
+    public function ajaxlike(Request $request)
+    {
+        $id = Auth::user()->id;
+        $diary_id = $request->diary_id;
+        $like = new Like;
+        $diary =Diary::find($diary_id);
+
+        // 空でない（既にいいねしている）なら
+        if ($like->like_exist($id, $diary_id)) {
+            //likesテーブルのレコードを削除
+            $like = Like::where('diary_id', $diary_id)->where('user_id', $id)->delete();
+        } else {
+            //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+            $like = new Like;
+            $like->diary_id = $request->diary_id;
+            $like->user_id = Auth::user()->id;
+            $like->save();
+        }
+
+        //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
+        $diaryLikesCount = $diary->loadCount('likes')->likes_count;
+
+        //一つの変数にajaxに渡す値をまとめる
+        //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
+        $json = [
+            'diaryLikesCount' => $diaryLikesCount,
+        ];
+        //下記の記述でajaxに引数の値を返す
+        return response()->json($json);
+    
+    }
+
 }

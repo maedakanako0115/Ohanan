@@ -16,6 +16,20 @@
                             <div class="d-flex justify-content-center align-items-center">
                                 <h4 class="pb-2 pt-2">{{$diary['title']}}</h4>
                                 <h5 class="px-4 border-bottom pb-2 pt-2">{{$diary['date']}}</h5>
+                                @if($like_model->like_exist(Auth::user()->id,$diary->id))
+                                <form action="{{route('posts.ajaxlike')}}" method="post">
+                                    @csrf
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle loved" href="" data-diaryid="{{ $diary->id }}"><i class="fas fa-heart likesCount">like</i></a>
+                                        <span class="likesCount">{{$diary->likes_count}}</span>
+                                    </p>
+                                    @else
+                                    <p class="favorite-marke">
+                                        <a class="js-like-toggle" href="" data-diaryid="{{ $diary->id }}"><i class="fas fa-heart likesCount">like</i></a>
+                                        <span class="likesCount">{{$diary->likes_count}}</span>
+                                    </p>
+                                </form>
+                                @endif
                             </div>
                             <div class="diary">
                                 {{$diary['text']}}
@@ -49,6 +63,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">コメント</label>
                                         <textarea class='form-control' name="comment" class=height:500px;width:400px; placeholder="内容を入力"></textarea>
                                         <input type="hidden" name="diary_id" value="{{$diary['id']}}">
+                                        <input type="hidden" name="group_id" value="{{$group_id}}">
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-secondary" data-dismiss="modal">戻る</button>
@@ -62,8 +77,11 @@
                         @csrf
                         @method('put')
                         @if(isset($comment))
-                        <h2>{{$comment['comment']}}</h2>
-                        <h2>{{$comment['created_at']}}</h2>
+                        <div class='d-flex align-items-center'>
+                            <div class='col-md-2'></div>
+                            <div class='col-md-2'>{{$comment['comment']}}</div>
+                            <div class='col-md-2'>{{$comment['created_at']}}</div>
+                        </div>
                         @else
                         <p>コメントがありません</p>
                         @endif
