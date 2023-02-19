@@ -17,5 +17,8 @@ class Diary extends Model
     {
       return $this->hasMany('App\Like');
     }
+    protected $policies =[
+      'App\Diary' => 'App\policies\DiaryPolicy',
+  ];
     
 }

@@ -72,9 +72,12 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Group $group)
     {
-        //
+        $group_id = $request->group_id;
+
+        return view('mygroup', compact('group','group_id'));
+
     }
 
     /**

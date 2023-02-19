@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="text-center">
             <p>かぞくで日記・Todoリストを共有しよう！</p>
-            <div class="btn-group pb-4 pt-3">
+            <div class="btn-group">
                 <form action="/home" method="get">
                     @csrf
                     <select class="custom-select" name="group_id">
@@ -32,10 +32,15 @@
 </div>
 
 @else
+<div class="text-left">
+    <div class="d-flex">
+        
+    </div>
 <div class="text-right">
     <div class="btn-group pb-4 pt-3">
         <form action="/home" method="get">
             @csrf
+            <li></li>
             <select class="custom-select" name="group_id">
                 <option selected>グループ選択</option>
                 @foreach($groups as $group)
@@ -46,7 +51,11 @@
                 @endif
                 @endforeach
             </select>
-            <button type="submit">移動する</button>
+            <button type="submit" class=" btn-outline-info m-4">移動する</button>
+        </form>
+        <form action="{{route('groups.show')}}">
+            <button type="submit" class="btn btn-outline-info m-4">かぞく</button>
+            <input type="text" name="group_id" value="{{$group_id}}" hidden>
         </form>
         <a href="{{route('groups.create')}}">
             <button type="button" class="btn btn-outline-success m-4">かぞく作成</button>
@@ -61,7 +70,7 @@
     <div class="row justify-content-around">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                     <div class='text-center'>To do List</div>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
@@ -177,40 +186,32 @@
                                 <input type="text" name="group_id" value="{{$group_id}}" hidden>
                             </form>
                         </div>
-                        <table class='table'>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th scope='col'>タイトル</th>
-                                    <th scope='col'>日付</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(isset($diaries))
-                                @foreach($diaries as $diary)
-                                @csrf
-                                <tr>
-                                    <th scope='col'>
-                                        <form action="{{route('diarys.show',$diary['id'])}}">
-                                            <input type="text" name="group_id" value="{{$group_id}}" hidden>
-                                            <button type="submit">🐸</button>
-                                        </form>
-                                    </th>
-                                    <th scope='col'>{{$diary['title']}}</th>
-                                    <th scope='col'>{{$diary['date']}}</th>
-                                </tr>
-                                @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                        @if(isset($diaries))
+                        @foreach($diaries as $diary)
+                        @csrf
+                        <div class="container">
+                            <div class="d-flex">
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <a href="{{route('diarys.show',$diary['id'])}}">
+                                            <img class="card-img-top" src="{{asset('storage/image/'.$diary["image"])}}" alt="Card image cap" width="100" height="200" action="{{route('diarys.show',$diary['id'])}}">
+                                            <div class="card-body text-center">{{$diary['title']}}</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    @endforeach
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-    @endif
+</div>
+@endif
 
-    <!-- <div class="container">
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -229,4 +230,4 @@
         </div>
     </div>
 </div> -->
-    @endsection
+@endsection

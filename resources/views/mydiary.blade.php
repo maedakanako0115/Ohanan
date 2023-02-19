@@ -88,6 +88,7 @@
                         @endforeach
                     </form>
                     <div class='d-flex justify-content-around'>
+                        @if($diary['user_id']==Auth::id())
                         <form action="{{route('diarys.destroy',$diary['id'])}}" method="post">
                             @csrf
                             @method('DELETE')
@@ -96,6 +97,7 @@
                         <a href="{{route('diarys.edit',$diary['id'])}}">
                             <button class='btn btn-secondary'>編集</button>
                         </a>
+                        @endif
                         <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()">一覧に戻る</button>
                     </div>
                 </div>

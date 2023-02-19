@@ -17,4 +17,7 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+    protected $policies =[
+        'App\Comment' => 'App\policies\CommentPolicy',
+    ];
 }

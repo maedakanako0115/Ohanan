@@ -14,4 +14,7 @@ class Group extends Model
     public function group_infos(){
         return $this->hasMany('App\Group_info');
     }
+    protected $policies =[
+        'App\Group' => 'App\policies\GroupPolicy',
+    ];
 }

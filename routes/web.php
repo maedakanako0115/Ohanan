@@ -1,6 +1,8 @@
 <?php
 
 use illuminate\Support\Facades\Route;
+use App\Http\Requests\CreateData;
+
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\DiaryController;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +29,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/todolists', 'TodolistController');
 Route::resource('/users', 'UserController');
-Route::resource('/comments', 'CommentController');
-Route::resource('/groups', 'GroupController');
-Route::resource('/diarys', 'DiaryController');
+
+Route::resource('/comments', 'CommentController',['only' => ['index','create','store','show',]]);
+Route::group(['middleware'=>'can:view,comment'],function(){
+Route::resource('/comments', 'CommentController',['only' => ['edit','update','destroy']]);
+});
+
+Route::resource('/diarys', 'DiaryController',['only' => ['index','create','store','show',]]);
+Route::group(['middleware'=>'can:view,diary'],function(){
+Route::resource('/diarys', 'DiaryController',['only' => ['edit','update','destroy']]);
+});
+
+Route::resource('/groups', 'GroupController',['only' => ['index','create','update','store','show',]]);
+Route::group(['middleware'=>'can:view,group'],function(){
+Route::resource('/groups', 'GroupController',['only' => ['edit','destroy']]);
+});
 
 
 //ログイン中のユーザーのみアクセス可能

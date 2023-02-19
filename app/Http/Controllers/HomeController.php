@@ -58,9 +58,9 @@ class HomeController extends Controller
                 // = 使うなら変数「」にしてあげる　（キーが入る（01...））
             }
         }
+        $groups=$groups->get();
     
         // getするためには変数＝～get()
-        $groups=$groups->get();
 
         $keyword='';
 
@@ -87,7 +87,10 @@ class HomeController extends Controller
             // 配列になっているのでループ処理
             foreach ($keys as $key) {
                 // title, textをor検索 title, textはカラム名が違うのであれば置き換え
-                $diary->orWhere('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                $diary->orWhere(function ($query) use($key){
+                    // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
+                    $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                });
             }
         } elseif (!$keyword && $group_id) {
             $diary->where('group_id', $group_id);
@@ -97,7 +100,10 @@ class HomeController extends Controller
             // 配列になっているのでループ処理
             foreach ($keys as $key) {
                 // title, textをor検索 title, textはカラム名が違うのであれば置き換え
-                $diary->orWhere('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                $diary->orWhere(function ($query) use($key){
+                    // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
+                    $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                });
             }
                 $diary->where('group_id', $group_id);
         }
