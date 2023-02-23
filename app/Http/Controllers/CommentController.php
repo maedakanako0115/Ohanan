@@ -91,12 +91,12 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request,Comment $comment)
     {
-        $message= Comment::find($request->comment_id);
-        $message->delete();
+        $comment->delete();
 
 
-        return redirect()->route('mydiary');
+
+        return redirect()->route('home',['group_id'=>$request->group_id]);
     }
 }

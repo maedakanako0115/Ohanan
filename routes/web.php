@@ -45,6 +45,11 @@ Route::group(['middleware'=>'can:view,group'],function(){
 Route::resource('/groups', 'GroupController',['only' => ['edit','destroy']]);
 });
 
+Route::resource('/group_infos', 'Group_infoController',['only' => ['index','create','update','store','show',]]);
+Route::group(['middleware'=>'can:view,group_info'],function(){
+Route::resource('/group_infos', 'Group_infoController',['only' => ['edit','destroy']]);
+});
+
 
 //ログイン中のユーザーのみアクセス可能
 Route::group(['middleware' => ['auth']], function () {

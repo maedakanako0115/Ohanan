@@ -17,7 +17,7 @@
                         <img src="{{ asset('storage/image/default.png') }}" class="rounded-circle"  alt="プロフィール画像null" width="200" height="200">
                         <!-- asset publicから見つけてる -->
                         @else
-                        <img class="rounded-circle" src="{{asset('storage/image/'.$user["image"])}}" alt="プロフィール画像" width="100" height="100">
+                        <img class="rounded-circle" src="{{asset('storage/image/'.$user['image'])}}" alt="プロフィール画像" width="100" height="100">
                         @endif
                     </div>
                     <table class="table table-striped">  

@@ -41,16 +41,16 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        
+
         $group_id = $request->group_id;
-        $todolists='';
-        $diaries='';
+        $todolists = '';
+        $diaries = '';
         $groups = Group::where('user_id', Auth::id());
-        $flg=Group_info::where('user_id', Auth::id())->get();
+        $flg = Group_info::where('user_id', Auth::id())->get();
         // is_array->配列チェック
-        if($flg){
-            $group_flg=[];
-            foreach($flg as $val){
+        if ($flg) {
+            $group_flg = [];
+            foreach ($flg as $val) {
                 $groups->orWhere('id', $val->group_id);
                 // = 代入（上書される　or されない）
                 // orWhere->範囲選択（広がっていく）'->'推奨
@@ -58,60 +58,79 @@ class HomeController extends Controller
                 // = 使うなら変数「」にしてあげる　（キーが入る（01...））
             }
         }
-        $groups=$groups->get();
-    
-        // getするためには変数＝～get()
+        $groups = $groups->get();
 
-        $keyword='';
-
-        if($group_id){
 
         
-
-        $todolists = Todolist::where('user_id', Auth::id());
+        // getするためには変数＝～get()
+        
+        $keyword = '';
+        $icon=[];
+        $group_create=null;
+        $group_infos="";
+        // 条件式である、ないを定義すときは空の変数を作る
+        
         if ($group_id) {
-            $todolists = $todolists->where('group_id', $group_id);
-        }
-        $todolists = $todolists->get();
-
-        $diary = Diary::query();
-
-
-
-
-        // 検索するときはquery
-        $keyword = $request->input('keyword');
-        if ($keyword && !$group_id) {
-            // $keywordに全角スペースがあれば半角スペースに変換し、半角スペースで文字列を区切り配列化 's'変換コード
-            $keys = preg_split('/[\s,]+/', mb_convert_kana($keyword, 's'), -1, PREG_SPLIT_NO_EMPTY);
-            // 配列になっているのでループ処理
-            foreach ($keys as $key) {
-                // title, textをor検索 title, textはカラム名が違うのであれば置き換え
-                $diary->orWhere(function ($query) use($key){
-                    // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
-                    $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
-                });
+            
+            
+            $iconkey = [];
+            foreach ($groups as $group) {
+                if($group->id == $group_id){
+                    $group_create=$group->user->image;
+                }
+                // $group_create=
+                foreach ($group->group_infos as $val) {
+                    if($val['group_id'] == $group_id){
+                        $iconkey[] = $val->user->image;
+                    }
+                }
             }
-        } elseif (!$keyword && $group_id) {
-            $diary->where('group_id', $group_id);
-        } elseif ($keyword && $group_id) {
-            // $keywordに全角スペースがあれば半角スペースに変換し、半角スペースで文字列を区切り配列化 's'変換コード
-            $keys = preg_split('/[\s,]+/', mb_convert_kana($keyword, 's'), -1, PREG_SPLIT_NO_EMPTY);
-            // 配列になっているのでループ処理
-            foreach ($keys as $key) {
-                // title, textをor検索 title, textはカラム名が違うのであれば置き換え
-                $diary->orWhere(function ($query) use($key){
-                    // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
-                    $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
-                });
+            $icon = array_unique($iconkey);
+            
+            $todolists = Todolist::where('user_id', Auth::id());
+            if ($group_id) {
+                $todolists = $todolists->where('group_id', $group_id);
             }
+            $todolists = $todolists->get();
+            
+            $diary = Diary::query();
+            
+            
+            
+            
+            // 検索するときはquery
+            $keyword = $request->input('keyword');
+            if ($keyword && !$group_id) {
+                // $keywordに全角スペースがあれば半角スペースに変換し、半角スペースで文字列を区切り配列化 's'変換コード
+                $keys = preg_split('/[\s,]+/', mb_convert_kana($keyword, 's'), -1, PREG_SPLIT_NO_EMPTY);
+                // 配列になっているのでループ処理
+                foreach ($keys as $key) {
+                    // title, textをor検索 title, textはカラム名が違うのであれば置き換え
+                    $diary->orWhere(function ($query) use ($key) {
+                        // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
+                        $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                    });
+                }
+            } elseif (!$keyword && $group_id) {
                 $diary->where('group_id', $group_id);
-        }
-        // DD($diary->get());
+            } elseif ($keyword && $group_id) {
+                // $keywordに全角スペースがあれば半角スペースに変換し、半角スペースで文字列を区切り配列化 's'変換コード
+                $keys = preg_split('/[\s,]+/', mb_convert_kana($keyword, 's'), -1, PREG_SPLIT_NO_EMPTY);
+                // 配列になっているのでループ処理
+                foreach ($keys as $key) {
+                    // title, textをor検索 title, textはカラム名が違うのであれば置き換え
+                    $diary->orWhere(function ($query) use ($key) {
+                        // function内で定義したものしか使えないけどuseの中に外部で定義したものが使える
+                        $query->where('title', 'like', '%' . $key . '%')->orWhere('text', 'like', '%' . $key . '%');
+                    });
+                }
+                $diary->where('group_id', $group_id);
+            }
+            // DD($diary->get());
 
-        $diaries = $diary->paginate(5);
-    }
-        return view('home', compact('diaries', 'todolists', 'groups', 'group_id', 'keyword'));
+            $diaries = $diary->paginate(5);
+        }
+        return view('home', compact('diaries', 'todolists', 'groups', 'group_id', 'keyword', 'icon','group_create','group_infos'));
     }
 }
 

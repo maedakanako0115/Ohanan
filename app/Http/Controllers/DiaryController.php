@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diary;
 use App\Comment;
+use App\Group;
 use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +73,9 @@ class DiaryController extends Controller
     {
 
         $like_model = new Like;
+        // $group_num= Diary::where('id', '=' ,$diary);
         $comments = Comment::all();
+        $comments->user_id = Auth::id();
         $group_id = $request->group_id;
         return view('mydiary', compact('diary','like_model', 'comments', 'group_id'));
     }
@@ -122,6 +125,7 @@ class DiaryController extends Controller
      */
     public function destroy(Request $request, Diary $diary)
     {
+        $diary->comments()->delete();
         $diary->delete();
         return redirect()->route('home', ['group_id' => $request->group_id]);
     }
@@ -146,15 +150,11 @@ class DiaryController extends Controller
         }
 
         //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
-        $diaryLikesCount = $diary->loadCount('likes')->likes_count;
 
         //一つの変数にajaxに渡す値をまとめる
         //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
-        $json = [
-            'diaryLikesCount' => $diaryLikesCount,
-        ];
         //下記の記述でajaxに引数の値を返す
-        return response()->json($json);
+        return response()->json();
     
     }
 

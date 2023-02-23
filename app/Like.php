@@ -20,6 +20,6 @@ class Like extends Model
 
         return Like::where('user_id',$id)
         ->where('diary_id',$diary_id)
-        ->First();
+        ->exists();
     }
 }

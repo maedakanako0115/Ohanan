@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class Group_infoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,User $user)
+    public function index(Request $request,Group_info $group_info)
     {
+        $group_id=$request->group_id;
+        DD($request);
 
-        // 
-
+        return view('group_member', compact('user','group_id','group_info'));
     }
 
     /**
@@ -51,12 +52,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,User $user)
+    public function show($id)
     {
-        $group_id=$request->group_id;
-
-        return view('myaccount', compact('user','group_id'));
-
+        //
     }
 
     /**
@@ -65,11 +63,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,User $user)
+    public function edit($id)
     {
-        $group_id=$request->group_id;
-
-        return view('edit_account', compact('user','group_id'));
+        //
     }
 
     /**
@@ -79,19 +75,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->birthday=$request->birthday;
-
-        if(!is_null($request->image)){
-            $path=$request->image->store('public/image');
-            $file_name=basename($path);
-            $user->image=$file_name;
-        }
-        $user->save();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
+        //
     }
 
     /**
@@ -100,9 +86,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
+        //
     }
 }
