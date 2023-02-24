@@ -16,7 +16,11 @@
                 <div class="pt-4">
                     <form action="{{route('group_infos.index')}}">
                         <button type="submit" class="ml-1">
+                            @if ($member->user->image === null)
+                            <img src="{{ asset('storage/image/default.png') }}" class="rounded-circle" alt="プロフィール画像null" width="60px" >
+                            @else
                             <img src="{{asset('storage/image/' . $member->user->image)}}" alt="" width="60px">
+                            @endif
                         </button>
                         <input type="hidden" name="group_id" value="{{$group_id}}">
                         <input type="hidden" name="user_id" value="{{$member->user->id}}">
@@ -95,7 +99,7 @@
                 <div class="d-flex">
                     @if($admin_flg == 0)
                     <a href="{{route('groups.create')}}">
-                        <button type="button" class="btn btn-light m-4">作成<i class="fas fa-home"></i></button>ぎ
+                        <button type="button" class="btn btn-light m-4">作成<i class="fas fa-home"></i></button>
                     </a>
                     <form action="{{route('groups.index')}}">
                         <button type="submit" class="btn btn-light m-4">招待<i class="fas fa-user-plus"></i></button>
@@ -255,7 +259,7 @@
                                                         @if ($diary->image === null)
                                                         <img src="{{ asset('storage/image/noimage.png') }}" class="img-fluid pb-2 pt-2" width="150" height="200">
                                                         @else
-                                                        <img class="card-img-top" src="{{asset('storage/image/'.$diary['image'])}}"  width="150" height="200" action="{{route('diarys.show',$diary['id'])}}">
+                                                        <img class="card-img-top" src="{{asset('storage/image/'.$diary['image'])}}" width="150" height="200" action="{{route('diarys.show',$diary['id'])}}">
                                                         @endif
                                                         <input type="hidden" name="group_id" value="{{$group_id}}">
                                                     </a>
@@ -280,35 +284,37 @@
 
 @else
 @if(empty($group_id))
-<div class="card">
-    <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
-    <div class="card-body">
-        <div class="text-center">
-            <p>かぞくで日記・Todoリストを共有しよう！</p>
-            <div class="d-flex justify-content-around align-items-center mb-3">
-                <div class="d-flex">
-                    <form action="/home" method="get" class="d-flex">
-                        @csrf
-                        <div class="input-group">
-                            <select class="custom-select" name="group_id">
-                                <option selected>グループ選択</option>
-                                @foreach($groups as $group)
-                                @if($group_id == $group['id'])
-                                <option value="{{$group['id']}}" selected>{{$group['name']}}</option>
-                                @else
-                                <option value="{{$group['id']}}">{{$group['name']}}</option>
-                                @endif
-                                @endforeach
-                            </select>
-                            <div class="">
-                                <button type="submit" class="btn btn-outline-primary">移動する</button>
-                            </div>
-                        </div>
-                    </form>
+<div class="container">
+    <div class="card">
+        <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
+        <div class="card-body">
+            <div class="text-center">
+                <p>かぞくで日記・Todoリストを共有しよう！</p>
+                <div class="d-flex justify-content-around align-items-center mb-3">
                     <div class="d-flex">
-                        <a href="{{route('groups.create')}}">
-                            <button type="button" class="btn btn-outline-success mx-2">かぞく作成</button>
-                        </a>
+                        <form action="/home" method="get" class="d-flex">
+                            @csrf
+                            <div class="input-group">
+                                <select class="custom-select" name="group_id">
+                                    <option selected>グループ選択</option>
+                                    @foreach($groups as $group)
+                                    @if($group_id == $group['id'])
+                                    <option value="{{$group['id']}}" selected>{{$group['name']}}</option>
+                                    @else
+                                    <option value="{{$group['id']}}">{{$group['name']}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                                <div class="">
+                                    <button type="submit" class="btn btn-outline-primary">移動する</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="d-flex">
+                            <a href="{{route('groups.create')}}">
+                                <button type="button" class="btn btn-outline-success mx-2">かぞく作成</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

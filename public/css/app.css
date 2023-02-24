@@ -10960,3 +10960,10 @@ a.text-dark:focus {
 .body{
   min-height: 100vh;
 }
+.navbar-brand-center{
+  position: center;
+  width: 85%;
+  left: 0;
+  top: 0;
+  text-align:center;
+}
