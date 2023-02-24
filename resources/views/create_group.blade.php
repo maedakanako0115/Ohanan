@@ -18,7 +18,7 @@
                             <input type="text" name="name" class="col-sm-8" placeholder="山田家" />
                         </div>
                         <div class='d-flex justify-content-around mt-3'>
-                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()">一覧に戻る</button>
+                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
                             <button type="submit" class="btn btn-primary">保存</button>
                         </div>
                     </form>

@@ -35,7 +35,12 @@
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="d-inline-flex p-2 bd-highlight">
+                                @csrf
+                                @if ($diary->image === null)
+                                <img src="{{ asset('storage/image/noimage.png') }}" class="img-fluid pb-2 pt-2">
+                                @else
                                 <img src="{{asset('storage/image/'.$diary['image'])}}" class="img-fluid pb-2 pt-2">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -78,7 +83,7 @@
                         @method('put')
                         @if(isset($comment))
                         <div class='d-flex align-items-center pb-4 pt-2'>
-                            <div class='col-md-2'>{{$comment->user->nama}}</div>
+                            <div class='col-md-2'>{{$comment->user->name}}</div>
                             <div class='col-md-3'>{{$comment['comment']}}</div>
                             <div class='col-md-4'>{{$comment['created_at']}}</div>
                             <form action="{{route('comments.destroy',$comment['id'])}}" method="post" class=>
@@ -88,8 +93,6 @@
                             </form>
                         </div>
                     </form>
-                    @else
-                    <p>コメントがありません</p>
                     @endif
                     @endforeach
                     </form>

@@ -24,7 +24,7 @@
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @yield('stylesheet')
 </head>
-<body>
+<body class="background_color">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -80,7 +80,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="background_color py-3">
             @yield('content')
         </main>
     </div>

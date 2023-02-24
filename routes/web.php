@@ -5,6 +5,7 @@ use App\Http\Requests\CreateData;
 
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\DiaryController;
+use App\Http\Controllers\DestroyController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -45,10 +46,13 @@ Route::group(['middleware'=>'can:view,group'],function(){
 Route::resource('/groups', 'GroupController',['only' => ['edit','destroy']]);
 });
 
-Route::resource('/group_infos', 'Group_infoController',['only' => ['index','create','update','store','show',]]);
-Route::group(['middleware'=>'can:view,group_info'],function(){
-Route::resource('/group_infos', 'Group_infoController',['only' => ['edit','destroy']]);
-});
+Route::resource('group_infos', 'Group_infoController');
+// Route::group(['middleware'=>'can:view,group_info'],function(){
+// Route::resource('group_infos', 'Group_infoController',['only' => ['edit','destroy']]);
+
+// });
+
+Route::get('/gi_delete/{id}', 'DestroyController@destroy')->name('gi.destroy');
 
 
 //ログイン中のユーザーのみアクセス可能

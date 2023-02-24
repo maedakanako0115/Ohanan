@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Group_info;
 use App\Group;
+use App\Group_info;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,12 +18,15 @@ class Group_infoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,Group_info $group_info)
+    public function index(Request $request)
     {
-        $group_id=$request->group_id;
-        DD($request);
+        $group_id = $request->group_id;
+        $user_id = $request->user_id;
+        $users = User::find($user_id);
+        $groups = Group::where('user_id', Auth::id())->where('id',$group_id)->first();
 
-        return view('group_member', compact('user','group_id','group_info'));
+
+        return view('mygroup', compact('users', 'groups'));
     }
 
     /**
@@ -86,8 +90,18 @@ class Group_infoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy(Group_info $group_info)
+    // {
+    //     $group_info->delete();
+
+    //     return view('home', ['group_id' => 1]);
+    // }
+    // public function destroyinfo($group_info)
+    // {
+    //     $group
+    //     $group_info->delete();
+
+    //     return view('home', ['group_id' => 1]);
+    // }
+
 }

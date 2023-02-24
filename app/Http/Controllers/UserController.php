@@ -54,7 +54,6 @@ class UserController extends Controller
     public function show(Request $request,User $user)
     {
         $group_id=$request->group_id;
-
         return view('myaccount', compact('user','group_id'));
 
     }
@@ -103,6 +102,6 @@ class UserController extends Controller
     public function destroy(Request $request,User $user)
     {
         $user->delete();
-        return redirect()->route('home',['group_id'=>$request->group_id]);
+        return redirect()->route('home');
     }
 }

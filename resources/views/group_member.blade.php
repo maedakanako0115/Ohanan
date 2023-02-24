@@ -45,10 +45,10 @@
                             <form action="{{route('group_infos.destroy',$group_info['id'])}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class='btn btn-outline-danger m-4' type='submit' onclick="return confirm('本当に削除しますか？')">削除</button>
+                                <button class='btn btn-outline-danger m-4' type='submit' onclick="return confirm('本当に削除しますか？')"><i class="far fa-trash-alt"></i></button>
                             </form>
                             @endif
-                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()">一覧に戻る</button>
+                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
                         </div>
                     </div>
                 </div>

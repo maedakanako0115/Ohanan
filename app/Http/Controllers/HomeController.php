@@ -45,8 +45,11 @@ class HomeController extends Controller
         $group_id = $request->group_id;
         $todolists = '';
         $diaries = '';
+        $group_key = Group_info::where('group_id', $request->group_id)->get();
         $groups = Group::where('user_id', Auth::id());
         $flg = Group_info::where('user_id', Auth::id())->get();
+
+        // dd($flg);
         // is_array->配列チェック
         if ($flg) {
             $group_flg = [];
@@ -59,45 +62,70 @@ class HomeController extends Controller
             }
         }
         $groups = $groups->get();
+        // DD($groups);
 
 
-        
+
         // getするためには変数＝～get()
-        
+
         $keyword = '';
-        $icon=[];
-        $group_create=null;
-        $group_infos="";
+        $icon = [];
+        $id = [];
+        $group_create = null;
+        $group_infos = "";
+        $gm="";
+        $admin_flg="";
         // 条件式である、ないを定義すときは空の変数を作る
-        
+
         if ($group_id) {
-            
-            
+
+
             $iconkey = [];
+            $idkey = [];
+            $group_create = [];
             foreach ($groups as $group) {
-                if($group->id == $group_id){
-                    $group_create=$group->user->image;
+                if ($group->id == $group_id) {
+                    $group_create['image'] = $group->user->image;
+                    $group_create['id'] = $group->user->id;
                 }
-                // $group_create=
                 foreach ($group->group_infos as $val) {
-                    if($val['group_id'] == $group_id){
+                    if ($val['group_id'] == $group_id) {
                         $iconkey[] = $val->user->image;
+                        $idkey[] = $val->user->id;
                     }
                 }
             }
+
             $icon = array_unique($iconkey);
-            
+            $id = array_unique($idkey);
+
+
+            $gm=Group::where('id',$group_id)->first();
+
+            if(Auth::user()->id == $gm['user_id']){
+                $admin_flg=0;
+            }else{
+                $admin_flg=1;
+            }
+
+
+
+
+
+
+
+
             $todolists = Todolist::where('user_id', Auth::id());
             if ($group_id) {
                 $todolists = $todolists->where('group_id', $group_id);
             }
             $todolists = $todolists->get();
-            
+
             $diary = Diary::query();
-            
-            
-            
-            
+
+
+
+
             // 検索するときはquery
             $keyword = $request->input('keyword');
             if ($keyword && !$group_id) {
@@ -130,7 +158,7 @@ class HomeController extends Controller
 
             $diaries = $diary->paginate(5);
         }
-        return view('home', compact('diaries', 'todolists', 'groups', 'group_id', 'keyword', 'icon','group_create','group_infos'));
+        return view('home', compact('admin_flg','diaries', 'todolists', 'groups', 'group_id', 'keyword', 'icon', 'group_create', 'group_infos', 'id', 'group_key', 'flg'));
     }
 }
 

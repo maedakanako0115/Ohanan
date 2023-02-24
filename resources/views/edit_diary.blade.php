@@ -33,7 +33,7 @@
                         </div>
 
                         <div class='d-flex justify-content-around mt-3'>
-                            <button class='btn btn-primary pb-2 pt-2' onClick="history.back()">一覧に戻る</button>
+                            <button class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
                             <button type="submit" class="btn btn-primary">保存</button>
                         </div>
                     </form>
