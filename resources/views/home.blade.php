@@ -17,7 +17,7 @@
                     <form action="{{route('group_infos.index')}}">
                         <button type="submit" class="ml-1">
                             @if ($member->user->image === null)
-                            <img src="{{ asset('storage/image/default.png') }}" class="rounded-circle" alt="プロフィール画像null" width="60px" >
+                            <img src="{{ asset('storage/image/default.png') }}" class="rounded-circle" alt="プロフィール画像null" width="60px">
                             @else
                             <img src="{{asset('storage/image/' . $member->user->image)}}" alt="" width="60px">
                             @endif

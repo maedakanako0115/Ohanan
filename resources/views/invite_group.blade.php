@@ -15,17 +15,27 @@
                         <div class='d-flex align-items-center pb-4 pt-2'>
                             <form method="get" action="{{route('groups.index')}}">
                                 @csrf
-
-                                <input type="text" name="keyword" class="form-control" value="{{$keyword}}">
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-outline-dark">🔍</button>
-                                </span>
-                                <input type="hidden" name="group_id" value="{{$group_id}}">
+                                <div class="input-group">
+                                    <input type="text" name="keyword" class="form-control" value="{{$keyword}}">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-outline-dark">🔍</button>
+                                    </span>
+                                    <input type="hidden" name="group_id" value="{{$group_id}}">
+                                    <div class="">
+                                        <button type='button' class='btn btn-primary ml-5' onClick="history.back()"><i class="fas fa-home"></i></button>
+                                    </div>
+                                </div>
                             </form>
-                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-md-8">
+            <div class="card">
+                @foreach($user as $you)
                 <table class='table'>
                     <thead>
                         <tr>
@@ -36,7 +46,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($user as $you)
                         <tr>
                             <th></th>
                             <th scope='col'>{{$you['name']}}</th>
@@ -56,5 +65,8 @@
                         </tr>
                     </tbody>
                 </table>
-
-                @endsection
+            </div>
+        </div>
+    </div>
+</main>
+@endsection
