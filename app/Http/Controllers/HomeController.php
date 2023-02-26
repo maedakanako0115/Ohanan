@@ -41,7 +41,6 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-
         $group_id = $request->group_id;
         $todolists = '';
         $diaries = '';
@@ -99,11 +98,16 @@ class HomeController extends Controller
             $icon = array_unique($iconkey);
             $id = array_unique($idkey);
 
-
             $gm=Group::where('id',$group_id)->first();
+            if(empty($gm['user_id'])){
+                return redirect('/home');
+            }
 
             if(Auth::user()->id == $gm['user_id']){
+                
                 $admin_flg=0;
+
+                
             }else{
                 $admin_flg=1;
             }

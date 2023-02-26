@@ -8,7 +8,7 @@
         <div class="card  w-100">
             @foreach($groups as $val)
             @if($group_id == $val['id'])
-            <div class="card-header">
+            <div class="py-3 border-bottom mx-3">
                 <h3 class="text-center">{{$val->name}}</h3>
             </div>
             @foreach($val->group_infos as $member)
@@ -36,7 +36,7 @@
     @endif
     <div class="w-80">
         @if(!$group_id)
-        <div class="card">
+        <div class="card my-5">
             <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
             <div class="card-body">
                 <div class="text-center">
@@ -285,7 +285,7 @@
 @else
 @if(empty($group_id))
 <div class="container">
-    <div class="card">
+    <div class="card my-5">
         <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
         <div class="card-body">
             <div class="text-center">

@@ -28,10 +28,10 @@
 
 <body class="background_color">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm opacity">
             <div class="container">
                 <a class="navbar-brand-center" href="{{ url('/home') }}">
-                    <img src="{{ asset('storage/image/logologo.png') }}"  width="100" height="100">
+                    <img src="{{ asset('storage/image/logologo.png') }}" width="100" height="100">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -81,10 +81,22 @@
             </div>
         </nav>
 
-        <main class="background_color py-4">
+        <main class="bg-header">
+            <div >
             @yield('content')
+            </div>
         </main>
     </div>
 </body>
 
 </html>
+<style>
+    .bg-header{
+        width:100%;
+        height: 800px;
+        background-size: cover;
+    }
+    .opacity{
+        opacity: 0.9;
+    }
+</style>
