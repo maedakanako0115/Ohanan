@@ -5,15 +5,15 @@
 <div class="d-flex">
     @if($group_id)
     <div class="w-20 pt-5 d-flex">
-        <div class="card  w-100">
+        <div class="card mybox w-100">
             @foreach($groups as $val)
             @if($group_id == $val['id'])
             <div class="py-3 border-bottom mx-3">
                 <h3 class="text-center">{{$val->name}}</h3>
             </div>
             @foreach($val->group_infos as $member)
-            <div class="d-flex pl-5 ml-5">
-                <div class="pt-4">
+            <div class="d-flex pl-4">
+                <div class="pt-4 pl-4">
                     <form action="{{route('group_infos.index')}}">
                         <button type="submit" class="ml-1">
                             @if ($member->user->image === null)
@@ -121,9 +121,9 @@
         <div class="mx-auto">
             <div class="row justify-content-center">
                 <div class="col-md-9">
-                    <div class="card">
+                    <div class="box13">
                         <div class="card-body">
-                            <div class='text-center'>
+                            <div class='text-center box13-title'>
                                 <h3 class="">To do List<i class="fas fa-clipboard-list ml-2"></i></h3>
                             </div>
                             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal3">
@@ -208,7 +208,7 @@
                                                     <form action="{{route('todolists.destroy',$todolist['id'])}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class='btn btn-outline-primary' formaction="{{route('todolists.destroy',$todolist['id'])}}">削除</button>
+                                                        <button type="submit" class='btn btn-outline-primary' onclick="return confirm('本当に削除しますか？')" formaction="{{route('todolists.destroy',$todolist['id'])}}">削除</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -226,9 +226,9 @@
         <div class="mx-auto">
             <div class="row justify-content-center">
                 <div class="col-md-9 pb-2 pt-5">
-                    <div class="card">
+                    <div class="box75">
                         <div class="card-body">
-                            <div class='text-center'>
+                            <div class='text-center box-title'>
                                 <h3>日記<i class="fas fa-book ml-2"></i></h3>
                             </div>
                             <a href="/diarys/create?group_id={{$group_id}}">
@@ -285,8 +285,8 @@
 @else
 @if(empty($group_id))
 <div class="container">
-    <div class="card my-5">
-        <h3 class="card-header text-center">かぞく選択が選択されてません</h3>
+    <div class="box74 my-5">
+        <h3 class="box-title74 text-center">かぞく選択が選択されてません</h3>
         <div class="card-body">
             <div class="text-center">
                 <p>かぞくで日記・Todoリストを共有しよう！</p>
@@ -366,104 +366,105 @@
 </div>
 <div class="mx-auto">
     <div class="row justify-content-center">
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class='text-center'>
-                        <h3 class="">To do List<i class="fas fa-clipboard-list ml-2"></i></h3>
-                    </div>
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal3">
-                        <i class="far fa-plus-square"></i>
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title " id="exampleModal3Label">リスト作成</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="{{route('todolists.store')}}" method="post">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <label for="exampleFormControlInput1" class="form-label">リスト名</label>
-                                        <input type="list_name" name="list_name" class="form-control">
-                                        <label for="exampleFormControlInput1" class="form-label">名前</label>
-                                        <input type="assign_personname" name="assign_personname" class="form-control">
-                                        <label for="exampleFormControlInput1" class="form-label">期日</label>
-                                        <input type="date" name="deadline" id='date' class="form-control">
-                                        <input type="hidden" name="group_id" value="{{$group_id}}">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-dismiss="modal">戻る</button>
-                                        <button type="submit" class="btn btn-primary">登録</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- todoリスト内容 -->
+        <div class="col-md-9 ">
+            <div class="box13">
                     <div class="card-body">
-                        <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
-                            <div class="col-md-10">
-                                <div class='d-flex justify-content-center align-items-center'>
-                                    <div class='col-md-2'></div>
-                                    <div class='col-md-2'></div>
-                                    <div class='col-md-2'></div>
-                                    <div class='col-md-2'>To do</div>
-                                    <div class='col-md-3'>担当</div>
-                                    <div class='col-md-3'>状態</div>
-                                    <div class='col-md-4'>期限</div>
+                        <div class='box13-title text-center'>
+                            <h3 class="">To do List<i class="fas fa-clipboard-list ml-2"></i></h3>
+                        </div>
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal3">
+                            <i class="far fa-plus-square"></i>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title " id="exampleModal3Label">リスト作成</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{route('todolists.store')}}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <label for="exampleFormControlInput1" class="form-label">リスト名</label>
+                                            <input type="list_name" name="list_name" class="form-control">
+                                            <label for="exampleFormControlInput1" class="form-label">名前</label>
+                                            <input type="assign_personname" name="assign_personname" class="form-control">
+                                            <label for="exampleFormControlInput1" class="form-label">期日</label>
+                                            <input type="date" name="deadline" id='date' class="form-control">
+                                            <input type="hidden" name="group_id" value="{{$group_id}}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal">戻る</button>
+                                            <button type="submit" class="btn btn-primary">登録</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class='col-md-2'></div>
-                            <div class='col-md-2'></div>
-                            <div class='col-md-2'></div>
                         </div>
-                        @if(isset($todolists))
-                        @foreach($todolists as $todolist)
-                        <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
-                            <div class='col-md-11'>
-                                <form action="/todolists/{{$todolist['id']}}" method="post">
-                                    @csrf
-                                    @method('put')
+                        <!-- todoリスト内容 -->
+                        <div class="card-body">
+                            <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
+                                <div class="col-md-10">
                                     <div class='d-flex justify-content-center align-items-center'>
-                                        <div class='col-md-2'>✔️{{$todolist['list_name']}}</div>
-                                        <div class='col-md-2'>{{$todolist['assign_personname']}}</div>
-                                        <div class='col-md-2'>
-                                            <select name="status" class="text-center">
-                                                @foreach(\Status::STATUS as $key => $value)
-                                                @if($todolist['status'] === $key)
-                                                <option value="{{ $key }}" selected>{{ $value }}</option>
-                                                @endif
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class='col-md-2'>{{$todolist['deadline']}}</div>
-                                        <div class='col-md-2'>
-                                            <form action="{{route('todolists.update',$todolist['id'])}}" method="post">
-                                                @csrf
-                                                @method('put')
-                                                <button type="submit" class='btn btn-outline-primary' formaction="/todolists/{{$todolist['id']}}">更新</button>
-                                            </form>
-                                        </div>
-                                        <div class='col-md-2'>
-                                            <form action="{{route('todolists.destroy',$todolist['id'])}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class='btn btn-outline-primary' formaction="{{route('todolists.destroy',$todolist['id'])}}">削除</button>
-                                            </form>
-                                        </div>
+                                        <div class='col-md-2'></div>
+                                        <div class='col-md-2'></div>
+                                        <div class='col-md-2'></div>
+                                        <div class='col-md-2'>To do</div>
+                                        <div class='col-md-3'>担当</div>
+                                        <div class='col-md-3'>状態</div>
+                                        <div class='col-md-4'>期限</div>
                                     </div>
-                                </form>
+                                </div>
+                                <div class='col-md-2'></div>
+                                <div class='col-md-2'></div>
+                                <div class='col-md-2'></div>
+                            </div>
+                            @if(isset($todolists))
+                            @foreach($todolists as $todolist)
+                            <div class='d-flex align-items-center justify-content-center px-4 border-bottom pb-2 pt-2'>
+                                <div class='col-md-11'>
+                                    <form action="/todolists/{{$todolist['id']}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <div class='d-flex justify-content-center align-items-center'>
+                                            <div class='col-md-2'>✔️{{$todolist['list_name']}}</div>
+                                            <div class='col-md-2'>{{$todolist['assign_personname']}}</div>
+                                            <div class='col-md-2'>
+                                                <select name="status" class="text-center">
+                                                    @foreach(\Status::STATUS as $key => $value)
+                                                    @if($todolist['status'] === $key)
+                                                    <option value="{{ $key }}" selected>{{ $value }}</option>
+                                                    @endif
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class='col-md-2'>{{$todolist['deadline']}}</div>
+                                            <div class='col-md-2'>
+                                                <form action="{{route('todolists.update',$todolist['id'])}}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <button type="submit" class='btn btn-outline-primary' formaction="/todolists/{{$todolist['id']}}">更新</button>
+                                                </form>
+                                            </div>
+                                            <div class='col-md-2'>
+                                                <form action="{{route('todolists.destroy',$todolist['id'])}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class='btn btn-outline-primary'onclick="return confirm('本当に削除しますか？')" formaction="{{route('todolists.destroy',$todolist['id'])}}">削除</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endif
                     </div>
-                    @endforeach
-                    @endif
                 </div>
             </div>
         </div>
@@ -472,9 +473,9 @@
 <div class="mx-auto">
     <div class="row justify-content-center">
         <div class="col-md-9 pb-2 pt-5">
-            <div class="card">
+            <div class="box75">
                 <div class="card-body">
-                    <div class='text-center'>
+                    <div class='text-center box-title'>
                         <h3>日記<i class="fas fa-book ml-2"></i></h3>
                     </div>
                     <a href="/diarys/create?group_id={{$group_id}}">

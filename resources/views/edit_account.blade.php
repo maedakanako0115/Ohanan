@@ -43,6 +43,13 @@
                             </div>
                         </div>
                         
+                        <div class="form-group row">
+                            <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
+                            <div class="col-md-6">
+                                <input id="tel" type="tel" class="form-control @error('tel') is-invalid @enderror" name="tel" value="{{ Auth::user()->tel}}" value="{{ old('tel')}}" required autocomplete="tel">
+                            </div>
+                        </div>
+
 
                         <div class='d-flex justify-content-around mt-3'>
                             <button class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>

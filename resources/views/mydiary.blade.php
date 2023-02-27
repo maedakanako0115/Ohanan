@@ -4,12 +4,7 @@
 <main class="py-4">
     <div class="row justify-content-around">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class='text-center'>
-                        <h3>日記</h3>
-                    </div>
-                </div>
+            <div class="box1">
                 <div class="container">
                     <div class="row no-gutters">
                         <div class="col-12 col-sm-6 col-md-8">
@@ -78,40 +73,43 @@
                     </div>
 
                     @foreach($diary->comments as $comment)
-                    <form action="/comment/{{$comment['id']}}" method="post">
-                        @csrf
-                        @method('put')
-                        @if(isset($comment))
-                        <div class='d-flex align-items-center pb-4 pt-2'>
-                            <div class='col-md-2'>{{$comment->user->name}}</div>
-                            <div class='col-md-3'>{{$comment['comment']}}</div>
-                            <div class='col-md-4'>{{$comment['created_at']}}</div>
-                            <form action="{{route('comments.destroy',$comment['id'])}}" method="post" class=>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class='btn btn-outline-danger' formaction="{{route('comments.destroy',$comment['id'])}}"><i class="far fa-trash-alt"></i></button>
-                            </form>
-                        </div>
-                    </form>
-                    @endif
-                    @endforeach
-                    </form>
-                    <div class='d-flex justify-content-around'>
-                        <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
-                        @if($diary['user_id']==Auth::id())
-                        <a href="{{route('diarys.edit',$diary['id'])}}">
-                            <button class='btn btn-secondary'>編集<i class="fas fa-edit ml-2"></i></button>
-                        </a>
-                        <form action="{{route('diarys.destroy',$diary['id'])}}" method="post">
+                    <div class='box14'>
+                        <form action="/comment/{{$comment['id']}}" method="post">
                             @csrf
-                            @method('DELETE')
-                            <button class='btn btn-danger' type='submit' onclick="return confirm('本当に削除しますか？')"><i class="far fa-trash-alt"></i></button>
+                            @method('put')
+                            @if(isset($comment))
+                            <div class='d-flex align-items-center pb-4 pt-2'>
+                                <div class='col-md-2 box14-title'>{{$comment->user->name}}</div>
+                                <div class='col-md-3'>{{$comment['comment']}}</div>
+                                <div class='col-md-4'>{{$comment['created_at']}}</div>
+                                <form action="{{route('comments.destroy',$comment['id'])}}" method="post" class=>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class='btn btn-outline-danger' formaction="{{route('comments.destroy',$comment['id'])}}" onclick="return confirm('本当に削除しますか？')"><i class="far fa-trash-alt"></i></button>
+                                </form>
+                            </div>
                         </form>
                         @endif
+                        @endforeach
+                        </form>
+                        <div class='d-flex justify-content-around'>
+                            <button type='button' class='btn btn-primary pb-2 pt-2' onClick="history.back()"><i class="fas fa-home"></i></button>
+                            @if($diary['user_id']==Auth::id())
+                            <a href="{{route('diarys.edit',$diary['id'])}}">
+                                <button class='btn btn-secondary'>編集<i class="fas fa-edit ml-2"></i></button>
+                            </a>
+                            <form action="{{route('diarys.destroy',$diary['id'])}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class='btn btn-danger' type='submit' onclick="return confirm('本当に削除しますか？')"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </main>
 
 @endsection

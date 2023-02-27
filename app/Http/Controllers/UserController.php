@@ -83,6 +83,7 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->birthday=$request->birthday;
+        $user->tel=$request->tel;
 
         if(!is_null($request->image)){
             $path=$request->image->store('public/image');

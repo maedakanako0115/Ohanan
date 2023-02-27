@@ -3,11 +3,9 @@
 @section('content')
 <div class='row justify-content-center'>
     <div class="col-md-5">
-        <div class="card">
-            <div class="card-header">
-                <div class='text-center'>
-                    <h2>家族作成</h2>
-                </div>
+        <div class="card my-5">
+            <div class='text-center py-4 border-bottom mx-3'>
+                <h2>家族作成</h2>
             </div>
             <div class="card-body">
                 <div class="card-body">

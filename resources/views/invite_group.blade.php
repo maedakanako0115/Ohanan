@@ -5,11 +5,9 @@
     <div class="row justify-content-around">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    <div class='text-center'>
+                    <div class='text-center py-4 border-bottom mx-3'>
                         <h3>かぞく招待</h3>
                     </div>
-                </div>
                 <div class="card-body">
                     <div class="card-body">
                         <div class='d-flex align-items-center pb-4 pt-2'>
@@ -18,7 +16,7 @@
                                 <div class="input-group">
                                     <input type="text" name="keyword" class="form-control" value="{{$keyword}}">
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-outline-dark">🔍</button>
+                                        <button type="submit" class="btn btn-outline-success">🔍</button>
                                     </span>
                                     <input type="hidden" name="group_id" value="{{$group_id}}">
                                     <div class="">

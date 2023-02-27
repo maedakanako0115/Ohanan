@@ -10952,21 +10952,178 @@ a.text-dark:focus {
 .loved .fa-heart {
   color: red;
 }
-.background_color{
+
+.background_color {
+  min-height: 1200px;
   background-size: 1200px;
-  background: linear-gradient(-500deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 80%);
   background-repeat: no-repeat;
+  /* background: #80D9D9; */
+  /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
+  background: linear-gradient(-500deg, #96deda 40%, #50c9c3 80%);
   /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
-  /* background-image: linear-gradient(60deg, #96deda 0%, #50c9c3 100%); */
+  /* background-image: linear-gradient(-500deg, #96deda 0%, #50c9c3 100%); */
+  /* background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%); */
 }
-.body{
-  min-height: 100vh;
+
+.body {
+  min-height: 1200px;
 }
-.navbar-brand-center{
+
+.navbar-brand-center {
   position: center;
   width: 85%;
   left: 0;
   top: 0;
-  text-align:center;
+  text-align: center;
 }
 
+/* .box29 {
+  margin: 2em auto;
+  padding: 2em;
+  background-color: white;
+  background-image: linear-gradient(0deg, transparent 19px, #ccc 20px), linear-gradient(90deg, transparent 19px, #ccc 20px);
+  background-size: 20px 20px;
+} */
+  
+.box13 {
+  position: relative;
+  margin: 2em auto;
+  padding: 2em 1em 1em;
+  width: 90%;
+  background: #fffff9; /* ボックス背景色 */
+  border: 5px solid #f7cc88; /* 枠の色 */
+  border-radius: 3px;
+  box-shadow: 0 0 8px #333, 0 0 2px #555 inset; /* 影の色 */
+}
+
+.box13::before,
+.box13::after {
+  position: absolute;
+  content: '';
+  width: 25px; 
+  bottom: 3px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px #666; /* 影の色 */
+}
+
+.box13::before {
+  right: 55px;
+  border: solid 3px #8c8c8c; /*飾ペン黒 */
+}
+
+.box13::after {
+  right: 20px;
+  border: solid 3px #ffa3ce; /*飾ペンピンク */
+  transform: rotate(8deg); /*飾ペン角度 */
+}
+
+.box13-title {
+  position: absolute;
+  padding: .1em .5em;
+  left: 1em;
+  top: .5em;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: black; /* タイトル文字色 */
+  background: #fffff9; /* ボックス背景色 */
+  box-shadow: 1px 1px 3px #a0a0a0; /* 影の色 */
+}
+.box75{
+  background-color: whitesmoke;  /* 背景色 */
+	border-radius: 5px;
+	margin: 20px 5px; /* 外側の余白 上下・左右 */
+	padding: 30px 20px 20px 20px; /* 内側の余白 上・右・下・左 */
+	position: relative;
+	z-index: 0;
+}
+.box75 .box-title {
+background-image: repeating-linear-gradient(-45deg,#F6EEEC 0, #F6EEEC 4px,#FFE600 3px,#FFE600 6px);/*ストライプ*/
+border-left: 2px dotted rgba(0,0,0,.1);/* テープのギザギザ左*/
+border-right: 2px dotted rgba(0,0,0,.1);/* テープのギザギザ右*/
+transform: rotate(-2deg);/*テープの傾き*/
+font-size: 1em;/*タイトル文字の大きさ*/
+padding: 10px 20px;/*タイトルの余白*/
+line-height: 1;/*タイトルの行の高さ*/
+position:absolute;	/*配置(ここを動かす)*/
+top: -15px; /*上から（-10px）移動*/
+left: 20px; /*左から(20px)移動*/
+}
+
+.w-20{
+  padding: 25px;
+}
+.mybox{
+  position: relative;
+  margin: 2em 0;
+  padding: 1em 2em;
+  border-top: solid 2px #ee8992;
+  border-bottom: solid 2px #ee8992;
+  background-color: #fff;
+  color: gray;
+  font-weight: bold;
+
+}
+.mybox:before{
+	background-image: -webkit-gradient(radial, 30% 30%, 0, 30% 30%, 10, from(#ffe5ed), to(#e50044));	/* マップピンの色 */
+	border-radius: 50%;
+	box-shadow: .5px .5px 4px 1px rgba(128, 128, 128, 0.5);
+	content: '';
+	display: block;
+	position: absolute;
+	top: 5px;
+	left: 50%;
+	width: 15px;
+	height: 15px;
+	z-index: 0;
+}
+.mybox:after{
+	background-image: linear-gradient(-80deg, transparent 47%, #333333 47%, #333333 52%, transparent 52%, transparent);
+	content: '';
+	position: absolute;
+	top: 15px;
+	left: 50%;
+	width: 10px;
+	height: 13px;
+	z-index: -1;
+}
+.box1 {
+  margin: 2em auto;
+  padding:2em;/*内側の余白*/
+  background: none;/*元のボックス背景色なし*/
+  border:3px solid #ccc ;/*線の太さ・種類・色*/
+  position: relative;/*配置（基準）*/
+  }
+  .box1:after{
+  background-color:whitesmoke;/*ずらしたボックスの背景色*/
+  border:none;
+  content: '';
+  position: absolute;/*配置（ここを動かす）*/
+  top: 7px;/*上から7pxずらす*/
+  left: 7px;/*左から7pxずらす*/
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  }
+
+.box1 p {
+  margin: 0;
+  padding: 1em;
+}
+/*左上にずらした背景色ありタイトル*/
+.box74{
+  margin: 2em auto; /* ボックスの余白 */
+  background-color: #fafafa; /* ボックス背景色 */
+  padding:3em 2em 2em; /* ボックス内側余白 */
+  position:relative; /* 配置(ここを基準に)*/
+  border: 1px solid #5a728b;	/* ボックスの線 (太さ　種類　色)*/
+  }
+  .box74 .box-title74 {
+  background-color:#6cb2eb; /* タイトル背景色 */
+  font-size: 1.5em;/* タイトル文字の大きさ */
+  color: #fff ; /* タイトル文字色 */
+  padding: 7px 10px;/*タイトルの余白*/
+  line-height: 1;/*タイトルの行の高さ*/
+  position:absolute;	/* 配置(ここを動かす) */
+  top: -10px; /*上から（0px）移動*/
+  left: 20px; /*左から(0px)移動*/
+  }
