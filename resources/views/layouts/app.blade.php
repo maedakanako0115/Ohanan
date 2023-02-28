@@ -30,7 +30,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm opacity">
             <div class="container">
-                <a class="navbar-brand-center" href="{{ url('/home') }}">
+                <a class="navbar-brand-right ml-3" href="{{ url('/home') }}">
                     <img src="{{ asset('storage/image/logologo.png') }}" width="100" height="100">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

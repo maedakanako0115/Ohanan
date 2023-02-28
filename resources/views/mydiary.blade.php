@@ -15,7 +15,7 @@
                                 <form action="{{route('posts.ajaxlike')}}" method="post">
                                     @csrf
                                     <p class="favorite-marke">
-                                        <a class="js-like-toggle loved" href="" data-diaryid="{{ $diary->id }}"><i class="fas fa-heart"></i></a>
+                                        <a class="js-like-toggle loved " href="" data-diaryid="{{ $diary->id }}"><i class="fas fa-heart"></i></a>
                                     </p>
                                     @else
                                     <p class="favorite-marke">
